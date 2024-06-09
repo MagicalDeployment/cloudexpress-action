@@ -6,6 +6,9 @@ PROJECT_ID="${INPUT_PROJECT_ID}"
 COMPONENT_ID="${INPUT_COMPONENT_ID}"
 NEW_IMAGE="${INPUT_NEW_IMAGE}"
 CHECK_INTERVAL="${INPUT_INTERVAL}"
+DEBUG="${INPUT_DEBUG}"
+
+[[ "${DEBUG}" == "true" ]] && set -x
 
 # Get current component data
 DATA=$(curl -H "X-Service-Account-Id: 007" -H "X-Profile-Id: 007" -XGET "${BASE_URL}/components/${PROJECT_ID}/${COMPONENT_ID}/describe")
