@@ -8,6 +8,10 @@ NEW_IMAGE="${INPUT_NEW_IMAGE}"
 CHECK_INTERVAL="${INPUT_INTERVAL}"
 DEBUG="${INPUT_DEBUG}"
 
+DOCKER_REGISTRY_URL="${INPUT_DOCKER_REGISTRY_URL}"
+DOCKER_REGISTRY_USERNAME="${INPUT_DOCKER_REGISTRY_USERNAME}"
+DOCKER_REGISTRY_PASSWORD="${INPUT_DOCKER_REGISTRY_PASSWORD}"
+
 [[ "${DEBUG}" == "true" ]] && set -x
 
 # Get current component data
@@ -15,6 +19,10 @@ DATA=$(curl -H "X-Service-Account-Id: 007" -H "X-Profile-Id: 007" -XGET "${BASE_
 
 # Replace docker image to a new one
 UPDATED_DATA=$(echo ${DATA} | jq  ".dockerImage=\"${NEW_IMAGE}\"")
+
+[ -n "${DOCKER_REGISTRY_URL}" ] && UPDATED_DATA=$(echo ${DATA} | jq  ".dockerRegistryUrl=\"${DOCKER_REGISTRY_URL}\"")
+[ -n "${DOCKER_REGISTRY_USERNAME}" ] && UPDATED_DATA=$(echo ${DATA} | jq  ".dockerRegistryUsername=\"${DOCKER_REGISTRY_USERNAME}\"")
+[ -n "${DOCKER_REGISTRY_PASSWORD}" ] && UPDATED_DATA=$(echo ${DATA} | jq  ".dockerRegistryPassword=\"${DOCKER_REGISTRY_PASSWORD}\"")
 
 # Trigger deploy with updated body
 curl \

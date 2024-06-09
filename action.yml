@@ -35,6 +35,18 @@ inputs:
     description: ''
     required: false
     default: 'false'
+  docker_registry_url:
+    description: ''
+    required: false
+    default: ''
+  docker_registry_username:
+    description: ''
+    required: false
+    default: ''
+  docker_registry_password:
+    description: ''
+    required: false
+    default: ''
 
 outputs:
   status:
